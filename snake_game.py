@@ -1,8 +1,10 @@
 import pygame as pg
 import sys
+import random
+
 
 pg.init()
-
+pg.mouse.set_visible(False)
 ekran = pg.display.set_mode((1366,720))
 zaman = pg.time.Clock()
 mario = pg.image.load("mario.png")
@@ -19,9 +21,18 @@ bulut_mesafesi = 400
 bulut_mesafesi2 =700
 bulut_hizi= 0.4
 bulut_hizi2 = 0.41
-
+hedef = pg.image.load("hedef.png")
 imlec = pg.image.load("crosshair.png")
 imlec_dortgeni = imlec.get_rect()
+
+
+hedefler =[]
+for i in range(15):
+    x =random.randint(150, 1200)
+    y= random.randint(100, 600)
+    hedef_dörtgeni = hedef.get_rect(center = (x,y))
+    hedefler.append(hedef_dörtgeni)
+
 
 while True:
     for olay in pg.event.get():
@@ -31,6 +42,7 @@ while True:
         if olay.type == pg.MOUSEMOTION:
             imlec_dortgeni = imlec.get_rect(center=olay.pos)
     
+
     ekran.blit(arkaplan,(0,0))
     ekran.blit(agac1,(30,315))
     ekran.blit(agac2,(1150,310))
@@ -39,6 +51,10 @@ while True:
     su_yuksekligi = su_yuksekligi - su_hizi
     if su_yuksekligi > 620 or su_yuksekligi < 600:
         su_hizi *= -1
+
+    for i in hedefler:
+            ekran.blit(hedef,i)
+
     
     ekran.blit(bulut2,(bulut_mesafesi,150))
     bulut_mesafesi = bulut_mesafesi - bulut_hizi

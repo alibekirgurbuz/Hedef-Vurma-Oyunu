@@ -20,13 +20,16 @@ bulut_mesafesi2 =700
 bulut_hizi= 0.4
 bulut_hizi2 = 0.41
 
+imlec = pg.image.load("crosshair.png")
+imlec_dortgeni = imlec.get_rect()
+
 while True:
     for olay in pg.event.get():
         if olay.type == pg.QUIT:
             pg.quit()
             sys.exit()
         if olay.type == pg.MOUSEMOTION:
-            imlec_dortgeni = imlec.get_rect(center = olay.pos)
+            imlec_dortgeni = imlec.get_rect(center=olay.pos)
     
     ekran.blit(arkaplan,(0,0))
     ekran.blit(agac1,(30,315))
@@ -35,26 +38,21 @@ while True:
     
     su_yuksekligi = su_yuksekligi - su_hizi
     if su_yuksekligi > 620 or su_yuksekligi < 600:
-        su_hizi *=-1
-
+        su_hizi *= -1
     
     ekran.blit(bulut2,(bulut_mesafesi,150))
-
     bulut_mesafesi = bulut_mesafesi - bulut_hizi
-    if bulut_mesafesi > 500 or bulut_mesafesi <400:
-        bulut_hizi *=-1
+    if bulut_mesafesi > 500 or bulut_mesafesi < 400:
+        bulut_hizi *= -1
 
     ekran.blit(bulut1,(bulut_mesafesi2,150))
-
     bulut_mesafesi2 = bulut_mesafesi2 - bulut_hizi2
     if bulut_mesafesi2 > 800 or bulut_mesafesi2 < 700:
-        bulut_hizi2 *=-1
+        bulut_hizi2 *= -1
 
     ekran.blit(su,(0,su_yuksekligi))
-    imlec = pg.image.load("crosshair.png")
-
-    ekran.blit((imlec,imlec_dortgeni))
-
+    
+    ekran.blit(imlec,imlec_dortgeni)
 
     pg.display.update()
     zaman.tick(120)
